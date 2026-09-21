@@ -1,0 +1,25 @@
+# Dépendances principales
+pandas>=2.0
+numpy>=1.24
+scipy>=1.10
+scikit-learn>=1.3
+pyyaml>=6.0
+openpyxl>=3.1          # lecture des fichiers .xlsx EIOPA
+
+# Visualisation
+matplotlib>=3.7
+seaborn>=0.12
+plotly>=5.15
+
+# Tests
+pytest>=7.4
+pytest-cov>=4.1
+
+# Notebooks (exploration uniquement, pas de logique de production)
+jupyter>=1.0
+
+# M10 - Extraction PDF déterministe (optionnel, si PDF sources disponibles)
+pdfplumber>=0.10
+
+# M13 - Copilot IA
+anthropic>=0.25

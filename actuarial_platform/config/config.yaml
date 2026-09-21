@@ -1,0 +1,142 @@
+# =============================================================================
+# Configuration centrale de la plateforme actuarielle
+# Un seul point de vérité pour tous les chemins et paramètres partagés.
+# Chaque module lit ce fichier plutôt que de coder des chemins en dur.
+# =============================================================================
+
+project:
+  name: "Plateforme Actuarielle Vie - 15 Modules"
+  version: "0.1.0"
+
+paths:
+  data_raw: "data/raw"
+  data_processed: "data/processed"
+  outputs_figures: "outputs/figures"
+  outputs_reports: "outputs/reports"
+
+data_sources:
+  hmd:
+    mortality_rates_file: "data/raw/hmd/Mx_1x1.txt"
+    exposures_file: "data/raw/hmd/Exposures_1x1.txt"
+    country: "France"
+    nature: "reelle_officielle"
+
+  eiopa:
+    rfr_dir: "data/raw/eiopa/EIOPA_RFR_20260531"
+    reference_date: "2026-05-31"
+    nature: "reelle_officielle"
+
+  kaggle_prudential:
+    train_file: "data/raw/kaggle_prudential/train.csv"
+    nature: "reelle_tierce_anonymisee"
+    target_column: "Response"
+
+  kaggle_retention:
+    raw_dir: "data/raw/kaggle_retention"
+    nature: "synthetique_tierce_label_derive"
+    note: >
+      Dataset genere par la plateforme Mostly AI (identifiants prefixes
+      "mostly...", artefacts de generation dans les noms/metiers) - PAS une
+      donnee reelle malgre le classement initial du projet. Corrige apres
+      inspection du fichier reel. Aucune colonne de resiliation explicite ;
+      label derive dans le loader (voir m5_lapse/loader.py), a documenter
+      comme un proxy statistique, pas un historique reel d'evenements.
+
+  synthetic_portfolio:
+    output_file: "data/processed/synthetic_portfolio.csv"
+    nature: "synthetique_maison"
+    n_policies: 10000
+    seed: 42
+
+# Portefeuille synthétique : généré UNE SEULE FOIS (voir src/common/synthetic_portfolio.py)
+# puis réutilisé identique par M2, M3, M8, M9, M11, M12, M13, M15.
+# Ne jamais régénérer ce fichier une fois figé, sous peine d'incohérence
+# entre les modules (le "digital twin" verrait une compagnie différente à chaque fois).
+
+lee_carter:
+  fitting_years: [1950, 2023]
+  fitting_ages: [0, 100]
+  jump_off_year: 2023
+  # Horizon de projection : doit couvrir la durée maximale possible d'un contrat.
+  # Vie Entière jusqu'à whole_life_max_age=100, souscription possible dès 18 ans
+  # (voir synthetic_portfolio.py) -> jusqu'à 82 ans de projection nécessaires.
+  # Fixé à 90 avec marge de sécurité. ATTENTION : un horizon trop court ici
+  # tronque SILENCIEUSEMENT la couverture des jeunes assurés en Vie Entière
+  # dans M2/M3/M4 (la boucle d'extraction de qx s'arrête dès que l'année
+  # dépasse l'horizon disponible, sans erreur) - bug découvert par recoupement
+  # avec M7 (dont l'horizon est calculé dynamiquement, donc jamais tronqué).
+  forecast_horizon: 90
+
+pricing:
+  # Hypothèses techniques illustratives pour M2 - À AJUSTER/JUSTIFIER dans le mémoire,
+  # ce ne sont pas des valeurs réglementaires figées comme les chocs SCR ci-dessous.
+  technical_rate: 0.01          # taux technique d'actualisation (1%, hypothèse prudente)
+  current_year: 2026
+  radix: 100000                 # base de la table de survie (l_0)
+  term_product_duration_years: 20   # durée par défaut pour les produits temporaires
+  term_product_max_age: 65          # ou jusqu'à cet âge si plus tôt
+  whole_life_max_age: 100           # âge limite pour les produits vie entière
+  # Produits couverts par le calcul de prime pure mortalité (risque décès).
+  # Les produits d'épargne (Épargne Euro, Épargne UC) sont hors périmètre de M2 :
+  # leur tarification relève d'une logique financière (M8/ALM), pas actuarielle pure.
+  risk_products: ["Temporaire Décès", "Vie Entière", "Prévoyance"]
+
+m8_alm:
+  # Bilan actif synthetique (aucune vraie donnee de bilan disponible - meme
+  # logique que le portefeuille de passif synthetique). Calibre pour couvrir
+  # le passif (valeur de marche, courbe EIOPA centrale) a un ratio cible.
+  target_coverage_ratio: 1.10
+  allocation:
+    bonds: 0.70
+    equities: 0.20
+    real_estate: 0.10
+  bond_maturity_min: 1
+  bond_maturity_max: 20
+  bond_coupon_rate: 0.03
+  n_bonds: 20
+  seed: 123
+  # Horizon max des flux de passif consideres (doit couvrir la meme duree
+  # max que les autres modules, cf lee_carter.forecast_horizon)
+  max_horizon_years: 90
+
+m11_orsa:
+  # Horizon de projection pluriannuelle (run-off : pas de nouvelle affaire,
+  # le portefeuille vieillit simplement d'un an à chaque pas - hypothèse
+  # simplificatrice standard pour un premier ORSA prospectif).
+  projection_horizon_years: 5
+
+m9_optimizer:
+  # Hypothese assumee (a documenter/discuter dans le memoire) : elasticite du
+  # rachat au chargement commercial. Plus eleve = les assures resilient plus
+  # vite si le chargement s'ecarte de la prime pure. Valeur illustrative,
+  # calibree pour donner un optimum de chargement dans une fourchette
+  # commerciale plausible (1.3-1.5, cf. loading_bounds ci-dessous).
+  lapse_elasticity: 2.0
+  loading_bounds: [1.0, 3.0]
+  # Perimetre volontairement restreint aux produits de PROTECTION PURE.
+  # La Vie Entiere est EXCLUE : son objectif inclut l'accumulation d'une
+  # provision (fonction d'epargne implicite), incompatible avec un chargement
+  # commercial uniforme optimise sur un seul critere marge/rachat - un tel
+  # chargement applique sans discernement ecraserait sa provision a 0 (deja
+  # observe et corrige lors du developpement de M9). Les produits d'epargne
+  # explicites restent hors perimetre comme pour M2/M3/M4.
+  applicable_products: ["Temporaire Décès", "Prévoyance"]
+  # Fonds propres disponibles hypothetiques, pour un ratio de couverture SCR
+  # purement informatif (pas de vraie donnee de bilan - hors perimetre du
+  # projet qui ne modelise pas l'actif, voir M8/ALM).
+  assumed_own_funds_eur: 30000000
+
+scr_standard_formula:
+  # Chocs reglementaires Solvabilite II (reglement delegue 2015/35, tel qu'amende)
+  # Valeurs fixes publiques -> codees en dur, sourcees, pas besoin de fichier.
+  mortality_shock: 0.15       # +15% choc mortalite
+  longevity_shock: -0.20      # -20% choc longevite
+  lapse_shock_up: 0.50        # +50% choc rachat massif (majore)
+  lapse_shock_down: -0.50     # -50% choc rachat massif (minore)
+  lapse_mass_shock: 0.40      # 40% choc rachat de masse (contrats collectifs)
+  expense_shock: 0.10         # +10% choc frais
+  source: "Reglement delegue (UE) 2015/35, Titre I, Chapitre V, Section 5"
+
+logging:
+  level: "INFO"
+  format: "%(asctime)s | %(levelname)s | %(name)s | %(message)s"
