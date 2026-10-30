@@ -1,0 +1,24 @@
+name: Tests
+
+on:
+  push:
+    branches: [main, ci-tests]
+  pull_request:
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: actuarial_platform
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: actuarial_platform/requirements.txt
+      - run: pip install -r requirements.txt
+      # Les tests qui demandent les données publiques volumineuses (HMD, EIOPA,
+      # Kaggle), non versionnées, sont ignorés automatiquement.
+      - run: pytest tests -v

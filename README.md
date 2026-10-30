@@ -2,6 +2,7 @@
 
 **Une compagnie d'assurance-vie simulée de bout en bout, en 15 modules Python : mortalité Lee-Carter, tarification, provisionnement, SCR Solvabilité II, rachats, souscription, longévité, ALM, ORSA, jusqu'à un copilote IA et un jumeau numérique. Le tout est construit uniquement sur données publiques.**
 
+[![Tests](https://github.com/selyassine/VITA/actions/workflows/tests.yml/badge.svg)](https://github.com/selyassine/VITA/actions/workflows/tests.yml)
 ![Python](https://img.shields.io/badge/Python-3.11-3776AB?logo=python&logoColor=white)
 ![pytest](https://img.shields.io/badge/tests-pytest-0A9EDC?logo=pytest&logoColor=white)
 ![Next.js](https://img.shields.io/badge/Next.js-dashboard-000000?logo=nextdotjs&logoColor=white)
