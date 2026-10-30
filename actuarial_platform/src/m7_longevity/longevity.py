@@ -17,7 +17,7 @@ prime au sein de chaque groupe, puisque deux contrats avec le meme profil
 ont exactement le meme qx projete - une seule evaluation actuarielle suffit
 par groupe, multipliee par le nombre de contrats concernes.
 
-LIMITE ASSUMEE (a documenter dans le memoire) : nombre de simulations reduit
+LIMITE ASSUMEE (a documenter) : nombre de simulations reduit
 (200 par defaut, contre 1000 dans M1/M4) pour un temps de calcul raisonnable
 sur machine standard. Un intervalle de confiance sur la VaR elle-meme
 necessiterait davantage de simulations ou une methode de reduction de

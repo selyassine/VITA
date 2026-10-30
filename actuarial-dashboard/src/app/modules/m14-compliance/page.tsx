@@ -113,7 +113,7 @@ export default function M14CompliancePage() {
       <LimitBox items={[
         {
           title: "Ce n'est PAS un avis juridique",
-          text: "M14 est une vérification interne de complétude technique (les modules ont-ils tourné ?). Ce n'est en aucun cas une certification de conformité réglementaire réelle ou un avis juridique. À rappeler explicitement si cette section est citée dans le mémoire.",
+          text: "M14 est une vérification interne de complétude technique (les modules ont-ils tourné ?). Ce n'est en aucun cas une certification de conformité réglementaire réelle ou un avis juridique. À rappeler explicitement si cette section est citée.",
         },
         {
           title: "Périmètre partiel",

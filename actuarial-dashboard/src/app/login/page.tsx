@@ -110,7 +110,7 @@ function LoginForm() {
             Plateforme Actuarielle Vie
           </h1>
           <p style={{ color: "rgba(255,255,255,0.55)", fontSize: 13, marginTop: 6 }}>
-            Mémoire d&apos;actuariat · Soutenance 2026
+            Projet personnel · Actuariat vie
           </p>
         </div>
 
@@ -133,7 +133,7 @@ function LoginForm() {
                   type="text"
                   value={username}
                   onChange={e => setUsername(e.target.value)}
-                  placeholder="jury"
+                  placeholder="demo"
                   required
                   autoComplete="username"
                   className="form-input"
@@ -240,13 +240,13 @@ function LoginForm() {
             }}
           >
             <p style={{ fontSize: 12.5, color: "#64748b", margin: 0 }}>
-              Accès jury :{" "}
+              Accès démo :{" "}
               <code style={{ fontFamily: "monospace", background: "#e2e8f0", padding: "1px 5px", borderRadius: 4 }}>
-                jury
+                demo
               </code>{" "}
               /{" "}
               <code style={{ fontFamily: "monospace", background: "#e2e8f0", padding: "1px 5px", borderRadius: 4 }}>
-                actuariat2026
+                vita-demo
               </code>
             </p>
           </div>

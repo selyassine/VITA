@@ -1,6 +1,6 @@
 # Dashboard Plateforme Actuarielle Vie
 
-Site web de présentation des résultats du mémoire d'actuariat - 15 modules simulant une compagnie d'assurance-vie.
+Site web de présentation des résultats de VitaAI - 15 modules simulant une compagnie d'assurance-vie.
 
 ## Installation
 
@@ -19,8 +19,8 @@ Le site sera accessible sur `http://localhost:3000` (ou 3001 si le port 3000 est
 
 ## Identifiants de connexion
 
-- **Identifiant** : `jury`
-- **Mot de passe** : `actuariat2026`
+- **Identifiant** : `demo`
+- **Mot de passe** : `vita-demo`
 
 Ces identifiants sont codés en dur dans `src/auth.ts` pour la démo. En production, ils devraient être remplacés par des variables d'environnement.
 

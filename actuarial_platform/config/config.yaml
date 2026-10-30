@@ -68,7 +68,7 @@ lee_carter:
   forecast_horizon: 90
 
 pricing:
-  # Hypothèses techniques illustratives pour M2 - À AJUSTER/JUSTIFIER dans le mémoire,
+  # Hypothèses techniques illustratives pour M2 - À AJUSTER/JUSTIFIER dans la documentation,
   # ce ne sont pas des valeurs réglementaires figées comme les chocs SCR ci-dessous.
   technical_rate: 0.01          # taux technique d'actualisation (1%, hypothèse prudente)
   current_year: 2026
@@ -106,7 +106,7 @@ m11_orsa:
   projection_horizon_years: 5
 
 m9_optimizer:
-  # Hypothese assumee (a documenter/discuter dans le memoire) : elasticite du
+  # Hypothese assumee (a documenter/discuter) : elasticite du
   # rachat au chargement commercial. Plus eleve = les assures resilient plus
   # vite si le chargement s'ecarte de la prime pure. Valeur illustrative,
   # calibree pour donner un optimum de chargement dans une fourchette

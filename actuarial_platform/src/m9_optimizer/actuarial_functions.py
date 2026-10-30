@@ -3,7 +3,7 @@ M9 - Fonctions pures : marge technique en fonction du chargement commercial.
 
 Meme principe que M2/M3/M4/M7 : testable sans aucune donnee chargee.
 
-MODELE (hypothese assumee, a documenter dans le memoire) :
+MODELE (hypothese assumee, a documenter dans la documentation) :
 Un chargement commercial plus eleve (prime_commerciale = loading * prime_pure,
 loading > 1) augmente la marge unitaire par contrat, MAIS augmente aussi le
 risque de rachat (l'assure trouve la police moins competitive et resilie plus

@@ -27,7 +27,7 @@ from src.m13_copilot.tools import TOOL_DEFINITIONS, execute_tool
 logger = get_logger(__name__)
 
 SYSTEM_PROMPT = """Tu es le copilote actuariel d'une plateforme de 15 modules \
-simulant une compagnie d'assurance-vie (mémoire d'actuariat).
+simulant une compagnie d'assurance-vie (projet personnel d'actuariat).
 
 Tu réponds aux questions UNIQUEMENT à partir des outils fournis (SCR, ALM, \
 tarification, rachat, risques émergents, projection ORSA) - ne jamais \

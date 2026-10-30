@@ -1,115 +1,107 @@
-# VitaAI
+# VitaAI — Plateforme actuarielle d'assurance-vie
 
-**Plateforme actuarielle solo pour l'assurance-vie — projet personnelle**
+**Une compagnie d'assurance-vie simulée de bout en bout, en 15 modules Python : mortalité Lee-Carter, tarification, provisionnement, SCR Solvabilité II, rachats, souscription, longévité, ALM, ORSA, jusqu'à un copilote IA et un jumeau numérique. Le tout est construit uniquement sur données publiques.**
 
-VitaAI (nom de package interne : `actuarial_platform`) est une plateforme Python couvrant l'ensemble du cycle de vie actuariel en assurance-vie : modélisation de la mortalité, tarification, provisionnement, Solvabilité II / SCR, comportement de rachat (lapse), souscription, ALM, simulation de longévité, optimisation d'hypothèses, détection de risques émergents, ORSA, dashboard, copilote IA et conformité réglementaire — soit **15 modules**, construits en solo avec des données publiques uniquement (aucune donnée assureur interne).
+![Python](https://img.shields.io/badge/Python-3.11-3776AB?logo=python&logoColor=white)
+![pytest](https://img.shields.io/badge/tests-pytest-0A9EDC?logo=pytest&logoColor=white)
+![Next.js](https://img.shields.io/badge/Next.js-dashboard-000000?logo=nextdotjs&logoColor=white)
+![Solvabilité II](https://img.shields.io/badge/Solvabilit%C3%A9%20II-EIOPA-003399)
+![Licence MIT](https://img.shields.io/badge/licence-MIT-green)
 
+<p align="center">
+  <img src="actuarial-dashboard/public/figures/m1_mortality_curve.png" alt="Courbes de mortalité Lee-Carter" width="49%">
+  <img src="actuarial-dashboard/public/figures/m4_scr_breakdown.png" alt="Décomposition du SCR" width="49%">
+</p>
 
----
+> Projet personnel, réalisé seul. Aucune donnée d'assureur interne : uniquement la Human Mortality Database, les courbes de taux EIOPA et des jeux de données Kaggle publics.
 
-## Table des matières
+## En bref
 
-- [Vision et périmètre](#vision-et-périmètre)
-- [État d'avancement](#état-davancement)
-- [Architecture des modules](#architecture-des-modules)
-- [Sources de données](#sources-de-données)
-- [Installation](#installation)
-- [Utilisation](#utilisation)
-- [Tests](#tests)
-- [Choix méthodologiques clés](#choix-méthodologiques-clés)
-- [Stack technique](#stack-technique)
-- [Auteur](#auteur)
+- **Le cœur actuariel (M1 à M7) est approfondi** : Lee-Carter estimé par décomposition SVD sur données HMD réelles, primes et provisions prospectives validées par le principe d'équivalence actuarielle, SCR mortalité, longévité et taux sur les courbes EIOPA, VaR de longévité à 99,5 % par Monte-Carlo.
+- **Les modules applicatifs (M8 à M15) sont des prototypes fonctionnels**, testés, qui relient les briques entre elles : ALM, optimisation des hypothèses, ORSA, tableau de bord, copilote IA, contrôle de complétude, jumeau numérique.
+- **Les bugs de méthode sont documentés** : horizon de projection tronqué, duration calculée sur flux nets, cache périmé (voir [Choix méthodologiques](#choix-méthodologiques-clés)).
+- **Les résultats sont présentés dans un site Next.js** : une page par module, une page de méthodologie et une démo interactive (tarification M2, optimisation M9).
 
----
+## Les 15 modules
 
-## Vision et périmètre
-
-VitaAI est développé dans le cadre d'un mémoire de fin d'études en alternance, avec validation complète de la vision par le tuteur. Le projet vise une profondeur professionnelle sur les modules cœur de métier actuariel (M1–M7), avec une profondeur illustrative/prototype assumée sur les modules applicatifs et périphériques (M8–M15), compte tenu de la contrainte de 4 mois en solo.
-
-## État d'avancement
-
-| Bloc | Statut | Détail |
-|---|---|---|
-| **M1–M7** | ✅ Qualité professionnelle | Lee-Carter avec décomposition SVD, provisions prospectives validées par le principe d'équivalence actuarielle, SCR via courbes EIOPA, VaR de longévité par Monte Carlo |
-| **M8–M15** | 🚧 Majoritairement des stubs | Aucune couche applicative (API, UI, infrastructure) n'existe encore |
-| **Suite de tests** | 🟡 62 passed, 9 skipped | Les skips sont liés à l'absence des fichiers HMD volumineux en local |
-
-## Architecture des modules
-
-| # | Module | Rôle | Statut |
-|---|---|---|---|
-| M1 | Modélisation de la mortalité | Lee-Carter, décomposition SVD | ✅ |
-| M2 | Tarification | GLM pricing | ✅ |
-| M3 | Provisionnement | Provisions prospectives, équivalence actuarielle | ✅ |
-| M4 | Solvabilité II / SCR | Courbes EIOPA RFR | ✅ |
-| M5 | Comportement de rachat (lapse) | Basé sur le dataset Kaggle Life Insurance Retention | ✅ |
-| M6 | Souscription (underwriting) | Basé sur le dataset Prudential Life Insurance | ✅ |
-| M7 | Simulation de longévité | VaR par Monte Carlo | ✅ |
-| M8 | ALM (Asset-Liability Management) | Duration de Macaulay, appariement actif/passif | 🚧 |
-| M9 | Optimisation des hypothèses | — | 🚧 |
-| M10 | Détection de risques émergents | Pas de source de données assignée — reporté | ⏸️ |
-| M11 | ORSA | — | 🚧 |
-| M12 | Dashboard | — | 🚧 |
-| M13 | Copilote IA | — | 🚧 |
-| M14 | Conformité réglementaire | — | 🚧 |
-| M15 | Jumeau numérique (digital twin) | — | 🚧 |
+| # | Module | Méthode | Niveau |
+| --- | --- | --- | --- |
+| M1 | Mortalité | Lee-Carter, décomposition SVD, données HMD 1816–2023 | Approfondi |
+| M2 | Tarification | Prime pure par équivalence actuarielle sur tables projetées | Approfondi |
+| M3 | Provisionnement | Provision mathématique, méthode prospective | Approfondi |
+| M4 | Solvabilité II / SCR | Chocs mortalité, longévité et taux sur courbes EIOPA RFR | Approfondi |
+| M5 | Rachats (lapse) | Modèle de résiliation, label dérivé (jeu Kaggle Life Insurance Retention) | Approfondi |
+| M6 | Souscription | Baseline Random Forest (jeu Prudential Life Insurance) | Approfondi |
+| M7 | Longévité | VaR 99,5 % par simulation Monte-Carlo de Lee-Carter | Approfondi |
+| M8 | ALM | Duration de Macaulay, écart de duration, sensibilité de la NAV aux taux | Prototype |
+| M9 | Optimisation des hypothèses | Chargement optimal, arbitrage marge / rachat | Prototype |
+| M10 | Risques émergents | Comparaison thématique de publications EIOPA et ACPR | Prototype |
+| M11 | ORSA | Projection pluriannuelle de la solvabilité en run-off | Prototype |
+| M12 | Tableau de bord | 6 graphiques de synthèse, robustesse en cas d'échec d'un module | Prototype |
+| M13 | Copilote IA | Questions en langage naturel sur les résultats (API Anthropic) | Prototype |
+| M14 | Conformité | Checklist documentaire ORSA / Solvabilité II (contrôle interne, pas un avis réglementaire) | Prototype |
+| M15 | Jumeau numérique | Orchestration complète de M1 à M14, export JSON | Prototype |
 
 ## Sources de données
 
-Le projet repose exclusivement sur des données publiques :
+- **Human Mortality Database** : `Mx_1x1.txt` et `Exposures_1x1.txt` (1816–2023), pour M1, M7 et M9.
+- **Courbes EIOPA RFR** (mai 2026, scénarios de choc inclus), pour M4 et M8.
+- **Kaggle Life Insurance Retention** (10 000 contrats), pour M5. Le jeu n'a pas de label de résiliation explicite : il est dérivé, et cette limite est rappelée à chaque utilisation.
+- **Kaggle Prudential Life Insurance** (`train.csv`), pour M6.
 
-- **Human Mortality Database (HMD)** — `Mx_1x1.txt` et `Exposures_1x1.txt`, couvrant 1816–2023 → utilisé pour M1, M7, M9
-- **Courbes EIOPA RFR** (ZIP de mai 2026, scénarios de stress inclus) → utilisé pour M4, M8
-- **Kaggle Life Insurance Retention** (10 000 lignes, 14 colonnes) → utilisé pour M5 ; ne contient pas de label de churn explicite, nécessitant une dérivation
-- **Kaggle Prudential Life Insurance** (`train.csv`) → destiné à M6
-- **M10** : aucune source assignée à ce jour, module reporté
+Les fichiers ne sont pas versionnés (licences et taille) : les placer dans `actuarial_platform/data/raw/`.
 
-## Installation
+## Installation et tests
 
 ```bash
-git clone <url-du-repo>
-cd actuarial_platform
+git clone https://github.com/selyassine/VITA.git
+cd VITA/actuarial_platform
 python -m venv venv
-source venv/bin/activate  # Windows : venv\Scripts\activate
+source venv/bin/activate          # Windows : venv\Scripts\activate
 pip install -r requirements.txt
+pytest tests/ -v                  # les tests qui demandent les fichiers HMD sont ignorés s'ils sont absents
 ```
 
-Placez les fichiers de données requis dans `data/raw/` selon la structure attendue par chaque module (voir [Sources de données](#sources-de-données)).
+Lancer un module, par exemple l'ALM : `python -m src.m8_alm.alm`.
 
-## Utilisation
-
-Exemple d'exécution du module ALM (M8) :
+Site de présentation :
 
 ```bash
-python -m src.m8_alm.alm
+cd ../actuarial-dashboard
+npm install
+npm run dev                       # http://localhost:3000, identifiants de démo : demo / vita-demo
 ```
-
-> ⚠️ Avant de relancer les tests M8, supprimez le cache obsolète des obligations synthétiques :
-> ```powershell
-> Remove-Item .\data\processed\synthetic_bonds.csv
-> ```
-
-## Tests
-
-```bash
-pytest tests/ -v
-```
-
-État actuel : **62 passed, 9 skipped** (skips liés à l'absence des fichiers HMD volumineux).
 
 ## Choix méthodologiques clés
 
-- **Horizon de projection** : corrigé de 50 à 90 ans (la troncature à 50 ans sous-estimait silencieusement les provisions des jeunes assurés)
-- **Duration de Macaulay (M8)** : calculée sur les flux de trésorerie bruts (benefit cash flows), et non sur les flux nets — les flux nets proches de l'équivalence actuarielle sont numériquement instables (dénominateur proche de zéro)
-- **Valorisation du passif (M8)** : chaque police est plafonnée à zéro individuellement avant agrégation, plutôt que d'agréger des flux nets non signés — cohérent avec la méthodologie M3/M4, via `compute_total_best_estimate_with_curve`
-- **Cache et données obsolètes** : tout cache dérivé (ex. obligations synthétiques) doit être invalidé après une correction en amont, sous peine de tests reflétant silencieusement d'anciennes valeurs
+- **Horizon de projection porté de 50 à 90 ans** : la troncature à 50 ans sous-estimait sans bruit les provisions des jeunes assurés.
+- **Duration de Macaulay sur les flux de prestations bruts** : les flux nets, proches de zéro par équivalence actuarielle, rendent le calcul numériquement instable.
+- **Passif plafonné à zéro police par police avant agrégation**, de façon cohérente entre M3, M4 et M8.
+- **Tout cache dérivé est invalidé après une correction en amont** : sinon, les tests valident silencieusement d'anciennes valeurs.
 
-## Stack technique
+## Structure du dépôt
 
-- **Langage** : Python
-- **Tests** : pytest
-- **Cadres actuariels** : Lee-Carter, décomposition SVD, Solvabilité II / SCR, courbes EIOPA RFR, VaR par Monte Carlo, duration de Macaulay, ALM, provisionnement prospectif, principe d'équivalence actuarielle, ORSA
+```
+actuarial_platform/
+├── config/config.yaml     # source unique : chemins, paramètres, chocs SCR
+├── src/
+│   ├── common/            # chargement de la configuration, portefeuille synthétique
+│   └── m1_mortality/ … m15_digital_twin/
+├── tests/                 # un fichier par module, plus des tests d'intégration
+└── docs/architecture.md
+actuarial-dashboard/       # site Next.js de présentation des résultats
+```
 
-## Auteur
+La documentation détaillée de chaque module (hypothèses, limites, bugs corrigés) se trouve dans [`actuarial_platform/README.md`](actuarial_platform/README.md).
 
-**Yassine** — étudiant en double diplôme Data Science Engineering (ESPRIT, Tunisie) et Master Actuariat (Université du Mans, France), diplômé en août 2027. Profil hybride actuariat (tarification GLM, IBNR/Chain Ladder, Bornhuetter-Ferguson, Lee-Carter, IFRS 9, Solvabilité II) et data science/ML (CamemBERT, FastAPI, Docker, MLOps, RAG).
+## Stack
+
+Python (pandas, NumPy, SciPy, scikit-learn), pytest, Matplotlib et Plotly, API Anthropic (copilote), Next.js et TypeScript (site).
+
+## Licence
+
+Distribué sous licence MIT : voir [`LICENSE`](LICENSE).
+
+---
+
+Réalisé par **Yassine Selmi** — élève ingénieur à ESPRIT (Tunis, option Data Science) et étudiant en Master Actuariat (Le Mans Université) — [github.com/selyassine](https://github.com/selyassine)

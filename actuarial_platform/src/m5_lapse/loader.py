@@ -12,7 +12,7 @@ number_of_dependents, annual_income, occupation, health_status,
 smoking_status, policy_type, coverage_amount, monthly_premium,
 policy_start_date. AUCUNE colonne de resiliation.
 
-DERIVATION DU LABEL (a documenter explicitement dans le memoire comme un
+DERIVATION DU LABEL (a documenter explicitement comme un
 PROXY STATISTIQUE, pas un historique reel d'evenements de rachat) :
 
 Score de propension au rachat combinant des facteurs actuariels connus
@@ -42,7 +42,7 @@ LIMITE METHODOLOGIQUE MAJEURE : ce label ne reflete AUCUN evenement reel de
 resiliation. Il s'agit d'une construction statistique plausible utilisee
 pour demontrer la methodologie de modelisation du risque de rachat (M5),
 pas d'une prediction fiable du comportement reel des assures. A rappeler
-explicitement dans le memoire a chaque utilisation des resultats de M5.
+explicitement dans la documentation a chaque utilisation des resultats de M5.
 """
 from __future__ import annotations
 

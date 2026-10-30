@@ -1,7 +1,7 @@
 """
 M11 - Fonctions pures : vieillissement du portefeuille pour projection ORSA.
 
-Hypothèse RUN-OFF (à documenter dans le mémoire) : aucune nouvelle affaire
+Hypothèse RUN-OFF (à documenter) : aucune nouvelle affaire
 n'est souscrite sur l'horizon de projection - le portefeuille existant
 vieillit simplement d'année en année. C'est l'hypothèse la plus simple et
 la plus prudente pour un premier ORSA prospectif (une hypothèse de nouvelle

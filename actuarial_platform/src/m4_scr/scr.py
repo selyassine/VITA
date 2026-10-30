@@ -9,7 +9,7 @@ Combine :
     ci-dessous, qui actualise chaque flux avec le taux spot de sa propre
     maturite plutot qu'un taux technique plat).
 
-PERIMETRE ASSUME (a documenter dans le memoire) :
+PERIMETRE ASSUME (a documenter) :
   - SCR vie (mortalite + longevite) agrege via la matrice de correlation
     standard Solvabilite II (voir scr_functions.py) -> "SCR_vie_biometrique"
   - SCR de taux calcule separement -> "SCR_taux"

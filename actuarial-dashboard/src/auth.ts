@@ -13,14 +13,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       authorize: async (credentials) => {
         // Identifiants codés en dur pour la démo
         // À remplacer par des variables d'environnement en production
-        const validUsername = "jury";
-        const validPassword = "actuariat2026";
+        const validUsername = "demo";
+        const validPassword = "vita-demo";
 
         if (credentials.username === validUsername && credentials.password === validPassword) {
           return {
             id: "1",
-            name: "Jury Mémoire",
-            email: "jury@actuariat.fr",
+            name: "Visiteur démo",
+            email: "demo@vita.local",
           };
         }
         return null;

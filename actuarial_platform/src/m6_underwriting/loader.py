@@ -9,7 +9,7 @@ ATTENTION : les noms de colonnes sont anonymisés par Prudential
 (Product_Info_X, Medical_History_X, Medical_Keyword_X, etc.). Il n'existe
 pas de documentation publique associant ces colonnes à des variables métier
 précises — c'est une contrainte connue et documentée du dataset, à mentionner
-explicitement dans le mémoire (limite de la donnée, pas une erreur du projet).
+explicitement dans la documentation (limite de la donnée, pas une erreur du projet).
 """
 from __future__ import annotations
 

@@ -100,7 +100,7 @@ export default function Navigation() {
               VitaAI Actuariat
             </div>
             <div style={{ fontSize: 11, color: "rgba(255,255,255,0.5)", lineHeight: 1, marginTop: 2 }}>
-              Mémoire · 15 Modules
+              Actuariat vie · 15 modules
             </div>
           </div>
         </Link>

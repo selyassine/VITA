@@ -2,7 +2,7 @@
 Modèle de classification du risque assuré (M6 - Underwriting).
 
 Baseline : Random Forest multi-classe sur les 8 niveaux de risque `Response`.
-Objectif du mémoire : comparer ce baseline à des approches plus avancées
+Objectif : comparer ce baseline à des approches plus avancées
 (gradient boosting, ordinal regression vu que Response est une échelle ordonnée)
 et surtout démontrer l'usage dans le pipeline de tarification (M2).
 """
@@ -23,7 +23,7 @@ logger = get_logger(__name__)
 def prepare_features(X: pd.DataFrame) -> pd.DataFrame:
     """Imputation + encodage — baseline volontairement simple.
 
-    Note méthodologique pour le mémoire : Medical_History_10 et 32 ont un taux de
+    Note méthodologique : Medical_History_10 et 32 ont un taux de
     valeurs manquantes très élevé dans ce dataset (connu de la compétition Kaggle
     d'origine) ; une imputation plus fine (indicateur de missingness, MICE) est
     une piste d'amélioration à discuter plutôt qu'un prérequis du baseline.

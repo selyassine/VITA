@@ -4,14 +4,14 @@ M10 - Chargement de la table de comptages de mots-clés thématiques.
 Source des comptages : rapports officiels EIOPA (Financial Stability Report)
 et ACPR (Analyses et Synthèses), extraits et comptés via analyse assistée
 par IA (voir note méthodologique ci-dessous), PAS par un script déterministe
-propre à ce projet — limite à documenter explicitement dans le mémoire.
+propre à ce projet — limite à documenter explicitement.
 
 LIMITE MÉTHODOLOGIQUE IMPORTANTE :
 Contrairement à HMD/EIOPA(taux)/Kaggle, les comptages de mots-clés de ce
 fichier n'ont PAS été extraits par un script Python audité dans ce dépôt :
 ils proviennent d'une analyse manuelle assistée par un autre modèle de
 langage sur le texte des PDF (voir data/raw/m10_emerging_risk/keyword_counts.csv).
-C'est une limite de reproductibilité stricte à mentionner dans le mémoire.
+C'est une limite de reproductibilité stricte à mentionner explicitement.
 Si les PDF sources sont un jour déposés dans data/raw/m10_emerging_risk/,
 un script d'extraction propre (pdfplumber + regex) peut être ajouté pour
 regénérer ce fichier de façon entièrement déterministe et auditable -

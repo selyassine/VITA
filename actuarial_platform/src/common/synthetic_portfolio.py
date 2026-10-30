@@ -54,7 +54,7 @@ def generate_synthetic_portfolio(n_policies: int, seed: int) -> pd.DataFrame:
     chargement implicite dans un ordre de grandeur credible. Les deux
     courbes de mortalite (celle-ci, approximative, et celle de M1, reelle)
     ne coincident pas exactement — c'est attendu et a documenter dans le
-    memoire comme limite du caractere synthetique du portefeuille.
+    la documentation comme limite du caractere synthetique du portefeuille.
     """
     rng = np.random.default_rng(seed)
 

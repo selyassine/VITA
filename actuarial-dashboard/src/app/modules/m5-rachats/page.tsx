@@ -109,7 +109,7 @@ export default function M5RachatsPage() {
           Ce label ne reflète <strong>aucun événement réel de rachat</strong> — c&apos;est une construction
           statistique plausible pour démontrer la méthodologie de modélisation. Le dataset Kaggle Retention
           est lui-même synthétique (généré par Mostly AI), ce qui crée un double niveau de synthèse.
-          À rappeler explicitement à chaque citation des résultats M5 dans le mémoire.
+          À rappeler explicitement à chaque citation des résultats M5.
         </p>
       </div>
 

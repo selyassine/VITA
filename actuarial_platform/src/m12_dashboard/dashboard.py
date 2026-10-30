@@ -3,7 +3,7 @@ M12 - Dashboard exécutif.
 
 Aucune donnée brute propre : orchestre M1, M4, M8, M9, M10, M11 pour produire
 un ensemble de visualisations de synthèse (PNG), destinées à une direction
-ou à l'annexe graphique du mémoire.
+ou à une annexe graphique.
 
 PRINCIPE DE ROBUSTESSE : chaque graphique est généré dans un bloc isolé
 (try/except). Si un module sous-jacent échoue (ex: données manquantes),

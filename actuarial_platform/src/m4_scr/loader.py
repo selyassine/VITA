@@ -27,7 +27,7 @@ standard Solvabilite II :
 Cette approche est plus robuste et plus transparente (les facteurs utilises
 sont directement traçables et audités depuis les données EIOPA sources)
 qu'une dépendance à des cellules pré-calculées potentiellement obsolètes.
-A mentionner explicitement dans le mémoire comme un choix méthodologique
+A mentionner explicitement dans la documentation comme un choix méthodologique
 assumé, pas une donnée manquante.
 """
 from __future__ import annotations

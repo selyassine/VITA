@@ -3,9 +3,9 @@ import "./globals.css";
 import Navigation from "@/components/Navigation";
 
 export const metadata: Metadata = {
-  title: "Plateforme Actuarielle Vie — Mémoire d'Actuariat",
+  title: "VitaAI — Plateforme actuarielle vie",
   description:
-    "Dashboard professionnel présentant les résultats d'un mémoire d'actuariat : 15 modules simulant une compagnie d'assurance-vie (tarification, provisionnement, SCR, rachats, ALM, ORSA…)",
+    "Dashboard professionnel présentant les résultats d'une plateforme actuarielle : 15 modules simulant une compagnie d'assurance-vie (tarification, provisionnement, SCR, rachats, ALM, ORSA…)",
   keywords: "actuariat, assurance-vie, Solvabilité II, SCR, Lee-Carter, ORSA, ALM",
 };
 

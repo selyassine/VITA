@@ -22,7 +22,7 @@ export default function AccueilPage() {
           <div className="animate-fade-in-up">
             <div style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", background: "rgba(59,130,246,0.15)", border: "1px solid rgba(59,130,246,0.3)", borderRadius: 999, fontSize: 13, fontWeight: 600, color: "#93c5fd", marginBottom: 24 }}>
               <Sparkles size={14} />
-              Soutenance Mémoire d&apos;Actuariat 2026
+              Projet personnel d&apos;actuariat vie
             </div>
             <h1 style={{ fontSize: 48, fontWeight: 800, lineHeight: 1.15, letterSpacing: "-0.02em", marginBottom: 24 }}>
               Plateforme Actuarielle Vie : <span style={{ color: "#60a5fa" }}>Digital Twin</span>

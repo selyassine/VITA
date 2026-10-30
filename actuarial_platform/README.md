@@ -46,7 +46,7 @@ réglementaire et jumeau numérique.
 **Séparation stricte exploration / production.** Les notebooks servent à explorer
 un dataset ou tester une idée rapidement — ils ne contiennent jamais de logique
 réutilisée par un autre module. Toute logique qui doit être réutilisée (par un
-autre module, par les tests, ou par le mémoire final) est extraite dans un
+autre module, par les tests, ou par la documentation finale) est extraite dans un
 fichier `.py` de `src/`.
 
 **Un seul portefeuille synthétique.** Généré une fois via
@@ -75,7 +75,7 @@ chargés via `src/common/config_loader.py`. Aucun chemin ou paramètre ne doit
 > emplacements, tous les modules fonctionnels (M1, M6) et les tests associés
 > s'exécutent directement.
 
-## Nature des données (à rappeler dans le mémoire)
+## Nature des données (à rappeler à chaque utilisation des résultats)
 
 | Source | Nature |
 |---|---|
@@ -96,7 +96,7 @@ calibré pour un taux global cible de 17,5%. **Ce label ne reflète aucun
 événement réel de rachat** — c'est une construction statistique plausible
 pour démontrer la méthodologie de modélisation (voir docstring complète dans
 `src/m5_lapse/loader.py`), à rappeler explicitement à chaque utilisation des
-résultats de M5 dans le mémoire.
+résultats de M5 dans la documentation.
 
 ### Limite méthodologique connue — portefeuille synthétique
 
@@ -238,7 +238,7 @@ M14 est une checklist d'**auto-vérification documentaire** (la plateforme
 a-t-elle produit une preuve chiffrée pour chaque grande rubrique qu'un
 rapport ORSA/SFCR est censé couvrir ?) — **pas un avis juridique**, ni une
 certification de conformité réglementaire réelle. À rappeler explicitement
-si cette section est citée dans le mémoire.
+si cette section est citée dans la documentation.
 
 ### Note méthodologique M10 — recadrage de périmètre et limites de reproductibilité
 
@@ -260,7 +260,7 @@ n'ont PAS été extraits par un script déterministe propre à ce projet — ils
 proviennent d'une analyse assistée par un autre modèle de langage sur le
 texte des PDF sources (nécessaire car l'environnement de développement ne
 pouvait pas télécharger les PDF lui-même). **À documenter explicitement dans
-le mémoire comme limite de reproductibilité stricte.** Un script d'extraction
+la documentation comme limite de reproductibilité stricte.** Un script d'extraction
 déterministe est fourni (`src/m10_emerging_risk/extract_from_pdfs.py`,
 regex + `pdfplumber`) mais n'a pas pu être exécuté faute d'accès direct aux
 PDF dans cet environnement — si les PDF sources sont un jour déposés dans
@@ -358,8 +358,8 @@ données de test, soit un écart de 2,6x avant correction). Le bug a été
 détecté par recoupement avec M7 (dont l'horizon est calculé dynamiquement).
 Corrigé à 90 ans avec marge de sécurité ; une troncature est désormais
 explicitement journalisée (avertissement) si elle survient malgré tout.
-**Si tu as déjà cité des résultats M2/M3/M4 dans une version antérieure du
-mémoire, il faut les relancer avec cette version corrigée.**
+**Si tu as déjà cité des résultats M2/M3/M4 dans une version antérieure de la
+documentation, il faut les relancer avec cette version corrigée.**
 
 ## Prochaines étapes suggérées
 
@@ -373,7 +373,7 @@ Les 15 modules sont fonctionnels. Pistes d'amélioration optionnelles :
    `extract_from_pdfs.py` pour une extraction pleinement reproductible
    (remplacerait les comptages obtenus par analyse assistée par IA)
 4. Relire l'ensemble des notes méthodologiques ci-dessus (M2, M5, M7, M8, M9,
-   M10, M13, M14) pour la partie limites/discussion du mémoire — chaque bug
+   M10, M13, M14) pour la partie limites/discussion de la documentation — chaque bug
    trouvé et corrigé pendant le développement y est documenté avec sa cause
    racine, ce qui constitue en soi une démonstration de rigueur méthodologique
 5. (Optionnel) Étendre M6 (`quick=False` dans M15) pour inclure l'entraînement

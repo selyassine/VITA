@@ -9,7 +9,7 @@ taux (duration gap), en réutilisant :
     l'actualisation des deux côtés du bilan
   - M8/synthetic_assets.py (généré ici) pour le portefeuille obligataire
 
-PÉRIMÈTRE ASSUMÉ (à documenter dans le mémoire) :
+PÉRIMÈTRE ASSUMÉ (à documenter) :
   - Seules les obligations ont une duration modélisée finement (flux
     coupons + principal). Actions et immobilier sont traités comme des
     montants de valeur de marché SANS sensibilité aux taux modélisée

@@ -14,7 +14,7 @@ releve d'une logique financiere (rendement des actifs), traitee par M8/ALM.
 Hypotheses documentees (config.yaml, section "pricing") :
   - Duree des produits temporaires : 20 ans ou jusqu'a 65 ans, le plus proche
   - Produits vie entiere : couverture jusqu'a 100 ans
-  - Taux technique : 1% (hypothese prudente, a discuter/ajuster dans le memoire)
+  - Taux technique : 1% (hypothese prudente, a discuter/ajuster)
   - Mortalite par sexe (Female/Male) projetee separement via Lee-Carter (M1)
   - Approximation qx ~= mx (taux central), usuelle pour de petites valeurs de mx
 """
@@ -59,7 +59,7 @@ def _get_qx_path_for_policy(age_actuel: int, genre: str, duration_years: int,
     apres un choc a la hausse important sur un age deja tres eleve).
 
     Approximation qx ~= mx (taux central) : usuelle en premiere approche, a
-    documenter comme limite methodologique dans le memoire (l'ecart est
+    documenter comme limite methodologique (l'ecart est
     negligeable pour les mx faibles mais se creuse aux ages tres eleves).
     """
     cfg = load_config()
