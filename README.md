@@ -1,10 +1,9 @@
 # VitaAI
 
-**Plateforme actuarielle solo pour l'assurance-vie — projet de mémoire de fin d'études (alternance)**
+**Plateforme actuarielle solo pour l'assurance-vie — projet personnelle**
 
 VitaAI (nom de package interne : `actuarial_platform`) est une plateforme Python couvrant l'ensemble du cycle de vie actuariel en assurance-vie : modélisation de la mortalité, tarification, provisionnement, Solvabilité II / SCR, comportement de rachat (lapse), souscription, ALM, simulation de longévité, optimisation d'hypothèses, détection de risques émergents, ORSA, dashboard, copilote IA et conformité réglementaire — soit **15 modules**, construits en solo avec des données publiques uniquement (aucune donnée assureur interne).
 
-> ⚠️ Noms candidats encore à l'étude pour le rebranding final : ActuarIA, VitaCore, SolvencyOS, RiskVita, ActuaCopilot. Ce README utilise « VitaAI » par défaut — à mettre à jour une fois le nom arrêté.
 
 ---
 
@@ -18,7 +17,6 @@ VitaAI (nom de package interne : `actuarial_platform`) est une plateforme Python
 - [Utilisation](#utilisation)
 - [Tests](#tests)
 - [Choix méthodologiques clés](#choix-méthodologiques-clés)
-- [Feuille de route](#feuille-de-route)
 - [Stack technique](#stack-technique)
 - [Auteur](#auteur)
 
@@ -105,15 +103,6 @@ pytest tests/ -v
 - **Duration de Macaulay (M8)** : calculée sur les flux de trésorerie bruts (benefit cash flows), et non sur les flux nets — les flux nets proches de l'équivalence actuarielle sont numériquement instables (dénominateur proche de zéro)
 - **Valorisation du passif (M8)** : chaque police est plafonnée à zéro individuellement avant agrégation, plutôt que d'agréger des flux nets non signés — cohérent avec la méthodologie M3/M4, via `compute_total_best_estimate_with_curve`
 - **Cache et données obsolètes** : tout cache dérivé (ex. obligations synthétiques) doit être invalidé après une correction en amont, sous peine de tests reflétant silencieusement d'anciennes valeurs
-
-## Feuille de route
-
-- [ ] Confirmer que le correctif M8 ALM résout les valeurs actif/passif négatives (`pytest tests/ -v` + vérification de la sortie de `python -m src.m8_alm.alm`)
-- [ ] Trancher la règle de dérivation du label de rachat pour le dataset M5
-- [ ] Identifier le bon fichier `train.csv` Prudential pour M6
-- [ ] Avancer les stubs M8–M15 (profondeur prototype acceptée)
-- [ ] Arrêter le nom final du projet
-- [ ] Compléter le document de présentation CV avec les figures manquantes (valeurs SCR, montants VaR, nombre de lignes, itérations Monte Carlo)
 
 ## Stack technique
 
