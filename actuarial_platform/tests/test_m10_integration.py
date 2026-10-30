@@ -2,7 +2,20 @@
 Test d'intégration M10 - vérifie que le rapport complet s'exécute et que
 la comparaison EIOPA vs ACPR reflète bien le contraste observé.
 """
+import pytest
+
 from src.m10_emerging_risk.emerging_risk import build_thematic_comparison_report
+from src.m10_emerging_risk.loader import load_keyword_counts
+
+try:
+    load_keyword_counts()
+    DONNEES_M10 = True
+except FileNotFoundError:
+    DONNEES_M10 = False
+
+pytestmark = pytest.mark.skipif(
+    not DONNEES_M10, reason="keyword_counts.csv absent de data/raw/m10_emerging_risk/"
+)
 
 
 def test_full_report_runs_and_has_expected_structure():
