@@ -23,6 +23,14 @@
 - **Les bugs de méthode sont documentés** : horizon de projection tronqué, duration calculée sur flux nets, cache périmé (voir [Choix méthodologiques](#choix-méthodologiques-clés)).
 - **Les résultats sont présentés dans un site Next.js** : une page par module, une page de méthodologie et une démo interactive (tarification M2, optimisation M9).
 
+## Aperçu
+
+| Duration actif / passif (ALM, M8) | Arbitrage marge / rachat (M9) |
+| :-: | :-: |
+| <img src="actuarial-dashboard/public/figures/m8_alm_duration_gap.png" alt="ALM" width="100%"> | <img src="actuarial-dashboard/public/figures/m9_margin_curve.png" alt="Optimisation" width="100%"> |
+| **Trajectoire de solvabilité ORSA (M11)** | **Risques émergents, EIOPA et ACPR (M10)** |
+| <img src="actuarial-dashboard/public/figures/m11_orsa_trajectory.png" alt="ORSA" width="100%"> | <img src="actuarial-dashboard/public/figures/m10_emerging_risk_comparison.png" alt="Risques émergents" width="100%"> |
+
 ## Les 15 modules
 
 | # | Module | Méthode | Niveau |
