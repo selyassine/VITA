@@ -2,6 +2,8 @@
 
 **Une compagnie d'assurance-vie simulée de bout en bout, en 15 modules Python : mortalité Lee-Carter, tarification, provisionnement, SCR Solvabilité II, rachats, souscription, longévité, ALM, ORSA, jusqu'à un copilote IA et un jumeau numérique. Le tout est construit uniquement sur données publiques.**
 
+> **In English.** VitaAI simulates a life insurer end to end in 15 Python modules. The actuarial core (M1 to M7) is developed in depth: Lee-Carter mortality fitted by SVD on Human Mortality Database data, premiums and prospective reserves checked against the actuarial equivalence principle, Solvency II SCR for mortality, longevity and interest rates on EIOPA curves, and a 99.5% longevity VaR by Monte Carlo. Modules M8 to M15 (ALM, ORSA, dashboard, AI copilot, digital twin) are tested working prototypes. Personal project on public data only; documentation is in French.
+
 [![Tests](https://github.com/selyassine/VITA/actions/workflows/tests.yml/badge.svg)](https://github.com/selyassine/VITA/actions/workflows/tests.yml)
 ![Python](https://img.shields.io/badge/Python-3.11-3776AB?logo=python&logoColor=white)
 ![pytest](https://img.shields.io/badge/tests-pytest-0A9EDC?logo=pytest&logoColor=white)
