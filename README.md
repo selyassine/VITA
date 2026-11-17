@@ -27,6 +27,14 @@
 
 ## Aperçu
 
+Le site Next.js :
+
+| Accueil | Module M4 : SCR | Démo interactive : arbitrage M9 |
+| :-: | :-: | :-: |
+| <img src="docs/apercu/accueil.png" alt="Page d'accueil de VitaAI" width="100%"> | <img src="docs/apercu/module_scr.png" alt="Page du module M4 : SCR" width="100%"> | <img src="docs/apercu/demo_arbitrage_m9.png" alt="Démo interactive : chargement commercial et marge" width="100%"> |
+
+Les figures produites par les modules :
+
 | Duration actif / passif (ALM, M8) | Arbitrage marge / rachat (M9) |
 | :-: | :-: |
 | <img src="actuarial-dashboard/public/figures/m8_alm_duration_gap.png" alt="ALM" width="100%"> | <img src="actuarial-dashboard/public/figures/m9_margin_curve.png" alt="Optimisation" width="100%"> |
